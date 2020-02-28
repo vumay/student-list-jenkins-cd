@@ -75,7 +75,7 @@ ansible-lint:
   <<: *ansible
   stage: check
   script:
-    - ansible-lint install_student_list.yml
+    - ansible-lint -x 306 install_student_list.yml
 
 build-student-list:
   <<: *ansible
