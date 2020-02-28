@@ -21,7 +21,7 @@ stages:
     - chmod 600 id_rsa
     - ansible-galaxy install -r roles/requirements.yml
   after_script:
-    - rm ansible/vault.key ansible/id_rsa
+    - rm vault.key id_rsa
   tags:
     - ansible
 
@@ -76,7 +76,6 @@ ansible-lint:
   stage: check
   script:
     - ansible-lint install_student_list.yml
-#    - ansible-lint roles/student-list/*.yml install_student_list.yml install_docker.yml install_gitlab_ci.yml install_terraform.yml
 
 build-student-list:
   <<: *ansible
