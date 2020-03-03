@@ -56,9 +56,31 @@ pipeline {
                        sh 'ansible-galaxy install -r roles/requirements.yml'
                    }
                }
-               stage("ping targeted hosts") {
+               stage("Ping targeted hosts") {
                    steps {
                        sh 'ansible all -m ping -i hosts --private-key id_rsa'
+                   }
+               }
+               stage("Vérify ansible playbook syntax") {
+                   steps {
+                       sh 'ansible-lint -x 306 install_student_list.yml'
+                       sh 'echo "${GIT_BRANCH}"'
+                   }
+               }
+               stage("Build docker images on build host") {
+                   when {
+                      expression { GIT_BRANCH == 'origin/master' }
+                  }
+                   steps {
+                       sh 'ansible-playbook  -i hosts --vault-password-file vault.key --private-key id_rsa --tags "build" --limit build install_student_list.yml'
+                   }
+               }
+               stage("Deploy app in production") {
+                    when {
+                       expression { GIT_BRANCH == 'origin/master' }
+                    }
+                   steps {
+                       sh 'ansible-playbook  -i hosts --vault-password-file vault.key --private-key id_rsa --tags "deploy" --limit prod install_student_list.yml'
                    }
                }
             }
