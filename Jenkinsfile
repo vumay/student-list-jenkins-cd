@@ -1,31 +1,10 @@
-node {
-        stage("Main build") {
-
-            checkout scm
-
-            docker.image('ruby:2.3.1').inside {
-
-              stage("Install Bundler") {
-                sh "gem install bundler --no-rdoc --no-ri"
-              }
-
-              stage("Use Bundler to install dependencies") {
-                sh "bundle install"
-              }
-
-              stage("Build package") {
-                sh "bundle exec rake build:deb"
-              }
-
-              stage("Archive package") {
-                archive (includes: 'pkg/*.deb')
-              }
-
-           }
-
+pipeline {
+    agent { docker { image 'python:3.5.1' } }
+    stages {
+        stage('build') {
+            steps {
+                sh 'python --version'
+            }
         }
-
-        // Clean up workspace
-        step([$class: 'WsCleanup'])
-
+    }
 }
