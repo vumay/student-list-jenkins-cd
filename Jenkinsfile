@@ -36,6 +36,33 @@ pipeline {
                 sh 'mdl --style all --warnings --git-recurse \${WORKSPACE}'
             }
         }
+        stage('Prepare ansible environment') {
+            agent any
+            environment {
+                VAULTKEY = credentials('vaultkey')
+                DEVOPSKEY = credentials('devopskey')
+            }
+            steps {
+                sh 'echo \$VAULTKEY > vault.key'
+                sh 'cp \$DEVOPSKEY id_rsa'
+                sh 'chmod 600 id_rsa'
+            }
+        }
+        stage('Test and deploy the application') {
+            agent { docker { image 'registry.gitlab.com/robconnolly/docker-ansible:latest' } }
+            stages {
+               stage("Install ansible role dependencies") {
+                   steps {
+                       sh 'ansible-galaxy install -r roles/requirements.yml'
+                   }
+               }
+               stage("ping targeted hosts") {
+                   steps {
+                       sh 'ansible all -m ping -i hosts --private-key id_rsa'
+                   }
+               }
+            }
+        }
     }
 }
 
