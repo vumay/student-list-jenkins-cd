@@ -27,7 +27,7 @@
     - build
     - deploy
 
-- name: Retrieve stident-list addons source code
+- name: Retrieve student-list addons source code
   git:
     repo: "{{ student_list_source_repo  }}"
     dest: "{{ home }}/student-list"
