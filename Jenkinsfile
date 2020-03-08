@@ -43,7 +43,7 @@ pipeline {
                 DEVOPSKEY = credentials('devopskey')
             }
             steps {
-                sh 'echo \$VAULTKEY > vault.key'
+                sh 'cp \$VAULTKEY > vault.key'
                 sh 'cp \$DEVOPSKEY id_rsa'
                 sh 'chmod 600 id_rsa'
             }
