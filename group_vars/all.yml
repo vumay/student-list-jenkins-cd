@@ -1,6 +1,6 @@
 ---
 
-student_list_source_repo: "git@github.com:vumay/student-list-jenkins-cd.git"
+student_list_source_repo: "git@github.com:vumay/Pozos.git"
 student_list_source_branch: "master"
 
 student_list_docker_image_tag: "v1"
