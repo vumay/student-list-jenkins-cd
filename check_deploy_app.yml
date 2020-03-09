@@ -7,8 +7,8 @@
   - name: Check that you can connect (GET) to a page and it returns a status 200
     uri:
       url: http://127.0.0.1
-    tags:
-      - deploy
+  tags:
+    - deploy
 
 
   - name: Check webservice
@@ -17,5 +17,5 @@
       user: "toto"
       password: "python"
       method: GET
-      tags:
-        - deploy
+    tags:
+      - deploy
