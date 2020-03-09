@@ -1,6 +1,6 @@
 ---
 - name: Ensure application is deployed
-  hosts: localhost
+  hosts: prod
 
   become: true
   tasks: 
