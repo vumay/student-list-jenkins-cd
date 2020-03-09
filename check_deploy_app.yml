@@ -17,5 +17,5 @@
       user: "toto"
       password: "python"
       method: GET
-    tags:
-      - deploy
+  tags:
+    - deploy
