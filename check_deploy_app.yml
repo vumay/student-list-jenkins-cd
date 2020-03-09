@@ -1,0 +1,16 @@
+---
+- name: Ensure application is deployed
+  hosts: localhost
+
+  become: true
+  tasks: 
+  - name: Check that you can connect (GET) to a page and it returns a status 200
+    uri:
+      url: http://127.0.0.1
+
+  - name: Check webservice
+    uri:
+      url: http://127.0.0.1:5000/pozos/api/v1.0/get_student_ages
+      user: "toto"
+      password: "python"
+      method: GET
