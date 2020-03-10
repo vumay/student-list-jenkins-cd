@@ -83,13 +83,16 @@ pipeline {
                        sh 'ansible-playbook  -i hosts --vault-password-file vault.key --private-key id_rsa --tags "deploy" --limit prod install_student_list.yml'
                    }
                }
-        stage('check deploy application') {
-            agent any
-            steps {
-                sh 'ansible-playbook  -i hosts --vault-password-file vault.key --private-key id_rsa --tags "deploy" --limit prod check_deploy_app.yml'
-            }
-        }
-      }
-    }
-  }
-} 
+               stage('check deploy application') {
+                   steps {
+                       sh 'ansible-playbook  -i hosts --vault-password-file vault.key --private-key id_rsa --tags "deploy" --limit prod check_deploy_app.yml'
+                   }
+               }
+             }
+           }
+         }
+       }
+     }
+   }
+ }
+}
