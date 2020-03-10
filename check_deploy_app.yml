@@ -12,7 +12,7 @@
 
     - name: Check webservice
       uri:
-        url: http://18.206.180.80:5000/pozos/api/v1.0/get_student_ages
+        url: http://18.206.180.80:4000/pozos/api/v1.0/get_student_ages
         user: "toto"
         password: "python"
         method: GET
